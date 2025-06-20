@@ -64,7 +64,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000") // Adjust to your frontend URL
+@CrossOrigin(origins = {
+        "http://localhost:3000",
+        "https://mcainventory.netlify.app" // ← replace this with your actual deployed frontend URL
+})
 public class UserController {
 
     @Autowired
