@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
+
 
 @SpringBootApplication
 public class InventorySoftwareApplication {
@@ -26,7 +28,7 @@ public class InventorySoftwareApplication {
 
     @Bean
     @Transactional
-    public CommandLineRunner loadTheData(ItemRepository repo, UserRepository userRepo, PasswordEncoder encoder) { // CommandLineRunner runs a block of code right after the app finishes starting
+    public CommandLineRunner loadTheData(ItemRepository repo, UserRepository userRepo, PasswordEncoder encoder, SerialNumberRepository serialRepo) { // CommandLineRunner runs a block of code right after the app finishes starting
         return args -> {
             System.out.println("➡ Seeding started...");
             // ItemRepository repo argument above is so that Spring automatically gives you an instance of ItemRepository
@@ -137,6 +139,24 @@ public class InventorySoftwareApplication {
                         "https://shop.simplyfixit.ca/cdn/shop/products/apple-iphone-14-plus-3.jpg?v=1698712218"
                 ));
 
+                if (serialRepo.count() == 0) {
+                    Item macbook = repo.findById("L01").orElse(null);
+                    if (macbook != null) {
+                        serialRepo.saveAll(Arrays.asList(
+                                new SerialNumber("MBP-001", macbook, "In Stock"),
+                                new SerialNumber("MBP-002", macbook, "In Use"),
+                                new SerialNumber("MBP-003", macbook, "Retired")
+                        ));
+                    }
+
+                    Item ipad = repo.findById("L02").orElse(null);
+                    if (ipad != null) {
+                        serialRepo.saveAll(Arrays.asList(
+                                new SerialNumber("IPAD-101", ipad, "In Repair"),
+                                new SerialNumber("IPAD-102", ipad, "In Stock")
+                        ));
+                    }
+                }
             } //temp
         };
     }
