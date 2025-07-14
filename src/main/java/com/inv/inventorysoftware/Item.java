@@ -28,18 +28,15 @@ public class Item {
     @Column(length = 1000) // <-- makes the url space longer
     private String imageUrl;
 
-    // NEW
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SerialNumber> serialNumbers = new ArrayList<>();
 
-    // NEW
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     public List<SerialNumber> getSerialNumbers() {
         return serialNumbers;
     }
-
-    // NEW
+    
     public void setSerialNumbers(List<SerialNumber> serialNumbers) {
         this.serialNumbers = serialNumbers;
     }
