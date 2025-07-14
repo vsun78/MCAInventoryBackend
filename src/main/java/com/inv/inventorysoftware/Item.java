@@ -36,7 +36,7 @@ public class Item {
     public List<SerialNumber> getSerialNumbers() {
         return serialNumbers;
     }
-    
+
     public void setSerialNumbers(List<SerialNumber> serialNumbers) {
         this.serialNumbers = serialNumbers;
     }
