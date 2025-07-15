@@ -139,7 +139,7 @@ public class InventorySoftwareApplication {
                         "https://shop.simplyfixit.ca/cdn/shop/products/apple-iphone-14-plus-3.jpg?v=1698712218"
                 ));
 
-                if (serialRepo.count() == 0) {
+               // if (serialRepo.count() == 0) {
                     Item macbook = repo.findById("L01").orElse(null);
                     if (macbook != null) {
                         serialRepo.saveAll(Arrays.asList(
@@ -156,7 +156,7 @@ public class InventorySoftwareApplication {
                                 new SerialNumber("IPAD-102", ipad, "In Stock")
                         ));
                     }
-                }
+               // }
             } //temp
         };
     }
